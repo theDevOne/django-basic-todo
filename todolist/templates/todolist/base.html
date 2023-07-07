@@ -1,0 +1,42 @@
+{% load django_bootstrap5 %} 
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo App</title>
+
+    {% bootstrap_css %}
+
+</head>
+<body>
+
+
+    {% block bootstrap5_content %}
+    <div class="container">
+
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'todo_list' %}">Home</a>
+            </li>
+            {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                <a class="nav-link active" href="{% url 'create_todo_item' %}">Create Todo</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link active" href="{% url 'logout' %}">Logout</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                <a class="nav-link active" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'register' %}">Register</a>
+                </li>
+            {% endif %}
+        </ul>
+            {% block content %}(no content){% endblock %}
+        </div>
+
+    {% endblock %}
+</body>
+</html>

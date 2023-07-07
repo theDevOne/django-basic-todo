@@ -1,0 +1,12 @@
+{% extends 'todolist/base.html' %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+
+{% block content %}
+	<form action="" method="post" class="form">
+	{% csrf_token %}
+	{% bootstrap_form form %}
+	{% bootstrap_button button_type="submit" content="Create Todo" %}
+	{% bootstrap_button button_type="reset" content="Reset" %}
+	</form>
+{% endblock %}

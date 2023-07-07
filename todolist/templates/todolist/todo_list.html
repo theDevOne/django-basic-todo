@@ -1,0 +1,60 @@
+{% extends 'todolist/base.html' %}
+{% load django_bootstrap5 %} 
+
+{% block content %}
+{% if request.user.is_authenticated %}
+  <p> Hello, {{ request.user.username | title }} </p>
+{% else %}
+  <p> Please login to view Tasks </p>
+{% endif %}
+
+{% if todos %}
+<table class="table justify-content-center">
+    <thead class="justify-content-center">
+        <tr>
+          <th scope="col">Task</th>
+          <th scope="col">Status</th>
+
+        </tr>
+    </thead>
+    <tbody>
+    
+    {% for todo in todos %}
+    <tr>
+    <th scope="row"> <a href="{% url 'view_todo_item' todo.id %}">{{ todo.name }}</a> </th>
+    
+    {% if todo.completed %}
+    <th scope="row">✅ </th>
+    {% else %}
+    <th scope="row">❌ </th>
+    {% endif %}
+
+    {% empty %}
+    <p>Create Task</p>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<ul class="pagination justify-content-center">
+<li class="page-item"><a class="page-link" href="{% url 'create_todo_item' %}">Create Todo </a></li>
+</ul>
+{% endif %}
+
+{% if is_paginated %}
+<nav aria-label="Page navigation conatiner">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+        {% endif %}
+        {% if page_obj.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+        {% endif %}
+    </ul>
+  </nav>
+{% endif %} 
+
+{% endblock %}
+
+
+    

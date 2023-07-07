@@ -1,0 +1,15 @@
+{% extends 'todolist/base.html' %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+
+{% block content %}
+<div class="card justify-content-center" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{todo.name}}</h5>
+      <p class="card-text">{{todo.description}}</p>
+      <a class="btn btn-primary" href="{% url 'delete_todo_item' todo.id %}">Delete Task</a>
+      <a class="btn btn-warning"href="{% url 'edit_todo_item' todo.id %}">Edit Task</a>
+
+    </div>
+  </div>
+{% endblock %}
